@@ -552,6 +552,13 @@ document.addEventListener("DOMContentLoaded", () => {
             .join("")}
         </ul>
       </div>
+      <div class="share-buttons">
+        <span class="share-label">Share:</span>
+        <button class="share-button" data-network="facebook" title="Share on Facebook" aria-label="Share on Facebook">Facebook</button>
+        <button class="share-button" data-network="x" title="Share on X" aria-label="Share on X">X</button>
+        <button class="share-button" data-network="email" title="Share by email" aria-label="Share by email">Email</button>
+        <button class="share-button" data-network="copy" title="Copy link" aria-label="Copy link">Copy link</button>
+      </div>
       <div class="activity-card-actions">
         ${
           currentUser
@@ -571,6 +578,13 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>
     `;
 
+    // Add click handlers for share buttons
+    activityCard.querySelectorAll(".share-button").forEach((button) => {
+      button.addEventListener("click", () =>
+        shareActivity(button.dataset.network, name, details.description, button)
+      );
+    });
+
     // Add click handlers for delete buttons
     const deleteButtons = activityCard.querySelectorAll(".delete-participant");
     deleteButtons.forEach((button) => {
@@ -588,6 +602,37 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     activitiesList.appendChild(activityCard);
+  }
+
+  // Share an activity on a social network, by email, or by copying the link
+  function shareActivity(network, name, description, button) {
+    const url = window.location.href.split("#")[0];
+    const text = `Check out ${name} at Mergington High School: ${description}`;
+    const encodedUrl = encodeURIComponent(url);
+    const encodedText = encodeURIComponent(text);
+
+    if (network === "copy") {
+      const done = () => {
+        const original = button.textContent;
+        button.textContent = "Copied!";
+        setTimeout(() => (button.textContent = original), 2000);
+      };
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(`${text} ${url}`).then(done);
+      }
+      return;
+    }
+
+    const links = {
+      facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedText}`,
+      x: `https://twitter.com/intent/tweet?text=${encodedText}&url=${encodedUrl}`,
+      email: `mailto:?subject=${encodeURIComponent(name)}&body=${encodedText}%20${encodedUrl}`,
+    };
+    if (network === "email") {
+      window.location.href = links.email;
+    } else {
+      window.open(links[network], "_blank", "noopener,noreferrer");
+    }
   }
 
   // Event listeners for search and filter
