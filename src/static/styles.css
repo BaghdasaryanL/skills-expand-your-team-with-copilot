@@ -5,7 +5,6 @@
   --primary-light: #534bae;
   --primary-dark: #000051;
   --primary-text: #ffffff;
-  --header-text: #ffffff;
 
   /* Secondary colors */
   --secondary: #ff6f00;
@@ -33,25 +32,6 @@
   --info-light: #d1ecf1;
 }
 
-:root[data-theme="dark"] {
-  color-scheme: dark;
-  --primary: #aab6fe;
-  --primary-light: #c5cae9;
-  --primary-dark: #3949ab;
-  --primary-text: #121212;
-  --background: #121212;
-  --surface: #1e1e1e;
-  --text-primary: #f5f5f5;
-  --text-secondary: #b0b0b0;
-  --border: #424242;
-  --border-light: #333333;
-  --border-focus: #616161;
-  --success-light: #1b3b20;
-  --warning-light: #4a3510;
-  --error-light: #4a1d1d;
-  --info-light: #15383d;
-}
-
 * {
   box-sizing: border-box;
   margin: 0;
@@ -75,7 +55,7 @@ header {
   padding: 12px 0;
   margin-bottom: 15px;
   background-color: var(--primary);
-  color: var(--header-text);
+  color: var(--primary-text);
   border-radius: 5px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
   position: relative;
@@ -309,7 +289,7 @@ section h3 {
 
 button {
   background-color: var(--primary);
-  color: var(--primary-text);
+  color: white;
   border: none;
   padding: 6px 12px;
   font-size: 0.85rem;
@@ -525,7 +505,7 @@ footer {
   height: 100%; /* Make button match input height */
   min-height: 32px; /* Ensure minimum clickable area */
   background: var(--primary);
-  color: var(--primary-text);
+  color: white;
   border: none;
   border-radius: 0 20px 20px 0;
   cursor: pointer;
@@ -585,7 +565,7 @@ footer {
 .day-filter.active,
 .time-filter.active {
   background-color: var(--primary);
-  color: var(--primary-text);
+  color: white;
   border-color: var(--primary-dark);
 }
 
@@ -641,9 +621,6 @@ footer {
   position: absolute;
   top: 10px;
   right: 15px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
 }
 
 #user-status {
@@ -670,7 +647,6 @@ footer {
   border-radius: 20px;
   padding: 4px 12px;
   font-size: 0.85rem;
-  color: var(--header-text);
   transition: background-color 0.2s;
 }
 
